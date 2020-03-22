@@ -8,7 +8,12 @@ const PORT = process.env.PORT || 5000;
 
 application = express();
 
+application.use(cors());
 
+
+application.get("/", (request, response) => {
+    return response.json("Welcome to Youtube clone")
+})
 
 application.use("/api", API);
 
