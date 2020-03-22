@@ -1,7 +1,8 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const Channel = sequelize.define('Channel', {
-    name: DataTypes.STRING
+    name: DataTypes.STRING,
+    description: DataTypes.TEXT
   }, {});
   Channel.associate = function(models) {
     // associations can be defined here
