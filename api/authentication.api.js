@@ -10,16 +10,6 @@ const _ = require("lodash");
 
 
 
-router.post("/login", (request, response) => {
-    const input = request.body;
-
-    return response.status(200).json({
-        message: "You are in the login path"
-    })
-});
-
-
-
 
 router.post("/register", (request, response) => {
     const input = request.body;
@@ -28,6 +18,18 @@ router.post("/register", (request, response) => {
         message: "You are in the register path"
     })
 })
+
+
+
+
+
+router.post("/login", (request, response) => {
+    const input = request.body;
+
+    return response.status(200).json({
+        message: "You are in the login path"
+    })
+});
 
 
 module.exports = router;
