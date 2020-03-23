@@ -2,13 +2,15 @@ const router = require("express").Router();
 const models = require("../db/models");
 const _ = require("lodash");
 const validateInputs = require("../helpers/validation/authentication-input.validator");
+const comparePasswordToHash = require("../helpers/encryption/compare-password.encryption");
+const jwt = require("jsonwebtoken");
+const fs = require("fs");
 
 /**
  * REQUIRMENTS
  * 1. User should be able to login
  * 2. Users should be able to register
  */
-
 
 
 
@@ -30,10 +32,36 @@ router.post("/register", async(request, response) => {
 router.post("/login", (request, response) => {
     const inputs = validateInputs(request.body, response);
 
+   models.User.findOne({
+       where: { fullName: inputs.value.fullName}
+   })
+   .then(async (user) => {
+
+    // if user not found send back 404
+    if (!user) {
+        return response.status(404).json({ message: "User not Found." });
+    };
+
+    const passwordValid = await comparePasswordToHash(inputs.value.password, user.dataValues.password)
+
+    // check if password matches hash, if not send back 400
+    if(!passwordValid){
+        return response.status(400).json({message: "Password is invalid."})
+    }
+
+    const token = jwt.sign({id: user.dataValues.id}, fs.readFileSync("./eprivate.key", "utf-8"), {expiresIn: 86400})
     return response.status(200).json({
-        message: "You are in the login path"
-    })
+        id: user.dataValues.id,
+        fullName: user.dataValues.fullName,
+        token: token
+    });
+    
+   })
 });
+
+
+
+
 
 
 module.exports = router;
