@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const models = require("../db/models");
 const _ = require("lodash");
+const validateRegisterInputs = require("../helpers/validation/register.validator");
 
 /**
  * REQUIRMENTS
@@ -11,12 +12,23 @@ const _ = require("lodash");
 
 
 
-router.post("/register", (request, response) => {
-    const input = request.body;
+router.post("/register", async(request, response) => {
+   const validateInput = validateRegisterInputs(request.body);
 
-    return response.status(200).json({
-        message: "You are in the register path"
-    })
+
+   /*
+        1. Validate user input
+        2. 
+    */
+   if(validateInput.error){
+       return response.status(400).json(validateInput.error.stack);
+   }
+   models.User.create(validateInput.value)
+    .then((user) => {
+       return response.status(200).json(user);
+   }).catch((error) =>{ 
+       return response.json(error);
+   })
 })
 
 
