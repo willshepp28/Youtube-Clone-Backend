@@ -3,6 +3,7 @@ const bodyParser = require("body-parser");
 const morgan = require("morgan");
 const cors = require("cors");
 const helmet = require("helmet");
+const multer = require("multer")
 const API = require("./api/api");
 const authenticationAPI = require("./api/authentication.api");
 const channelAPI = require("./api/channel.api");
@@ -17,7 +18,7 @@ application.use(cors());
 application.use(helmet());
 application.use(morgan("combined"));
 
-application.use(bodyParser.urlencoded());
+application.use(bodyParser.urlencoded({ extended: true}));
 application.use(bodyParser.json());
 
 
