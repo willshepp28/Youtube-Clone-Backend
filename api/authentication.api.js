@@ -4,7 +4,7 @@ const _ = require("lodash");
 const validateInputs = require("../helpers/validation/authentication-input.validator");
 const comparePasswordToHash = require("../helpers/encryption/compare-password.encryption");
 const jwt = require("jsonwebtoken");
-const fs = require("fs");
+
 
 /**
  * REQUIRMENTS
@@ -16,6 +16,14 @@ const fs = require("fs");
 
 router.post("/register", async(request, response) => {
   const inputs = validateInputs(request.body, response);
+
+
+  if(inputs.error){
+    return response.status(400).json(inputs.error.stack);
+}
+
+inputs.value.fullName = inputs.value.firstName + " " + inputs.value.lastName;
+
 
    models.User.create(inputs.value)
     .then((user) => {

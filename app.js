@@ -8,6 +8,7 @@ const API = require("./api/api");
 const authenticationAPI = require("./api/authentication.api");
 const channelAPI = require("./api/channel.api");
 const videosAPI = require("./api/video.api");
+const videoUploadAPI = require("./api/video.upload.api");
 const commentAPI = require("./api/comment.api");
 const PORT = process.env.PORT || 5000;
 
@@ -30,6 +31,7 @@ application.use("/api", API);
 application.use("/api/authentication", authenticationAPI);
 application.use("/api/channel", channelAPI);
 application.use("/api/videos", videosAPI);
+application.use("/api/video-upload", videoUploadAPI);
 application.use("/api/comment", commentAPI);
 
 

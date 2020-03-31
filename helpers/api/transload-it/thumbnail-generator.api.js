@@ -1,5 +1,5 @@
 
-const { createAssembly } = require("../api/transload-it/assembly.transload.it");
+const { createAssembly } = require("./assembly.transload.it");
 
 
 async function createThumbnailUploadVideos(video_url) {
@@ -14,7 +14,8 @@ async function createThumbnailUploadVideos(video_url) {
     };
   })
   .catch(error => {
-     throw new Error(error);
+     throw new Error(error.reason);
+     return;
   })
 }
 

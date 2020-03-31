@@ -5,6 +5,9 @@ const hashPassword = require("../../helpers/encryption/hash-passwords.encrytion"
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define('User', {
     fullName: DataTypes.STRING,
+    firstName: DataTypes.STRING,
+    lastName: DataTypes.STRING,
+    email: DataTypes.STRING,
     password: DataTypes.TEXT,
     profile_pic: {
       type: DataTypes.TEXT,

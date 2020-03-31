@@ -100,7 +100,7 @@ function s3VideoVirusCheck(video_url){
                 resize_strategy: "fit",
                 result: true,
                 ffmpeg_stack: "v3.3.3",
-                preset: "webm",
+                preset: "mp4",
               },
               'export': {
                 use: [
