@@ -65,7 +65,10 @@ router.post("/login", (request, response) => {
         return response.status(400).json({message: "Password is invalid."})
     }
 
-    const token = jwt.sign({id: user.dataValues.id}, fs.readFileSync("./eprivate.key", "utf-8"), {expiresIn: 86400})
+    const token = jwt.sign({id: user.dataValues.id}, fs.readFileSync("./eprivate.key", "utf-8"), {
+        algorithm: 'RS256',
+        expiresIn: 86400
+    })
     return response.status(200).json({
         id: user.dataValues.id,
         fullName: user.dataValues.fullName,
