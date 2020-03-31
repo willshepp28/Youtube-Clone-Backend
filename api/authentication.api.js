@@ -1,9 +1,13 @@
 const router = require("express").Router();
 const models = require("../db/models");
 const _ = require("lodash");
-const validateInputs = require("../helpers/validation/authentication-input.validator");
+const {
+    validateRegisterInputs,
+    validateLoginInputs
+} = require("../helpers/validation/authentication-input.validator");
 const comparePasswordToHash = require("../helpers/encryption/compare-password.encryption");
 const jwt = require("jsonwebtoken");
+const fs = require("fs");
 
 
 /**
@@ -15,7 +19,7 @@ const jwt = require("jsonwebtoken");
 
 
 router.post("/register", async(request, response) => {
-  const inputs = validateInputs(request.body, response);
+  const inputs = validateRegisterInputs(request.body, response);
 
 
   if(inputs.error){
@@ -29,7 +33,7 @@ inputs.value.fullName = inputs.value.firstName + " " + inputs.value.lastName;
     .then((user) => {
        return response.status(200).json({message: "User succesfully created"});
    }).catch((error) =>{ 
-       return response.json(error);
+       return response.statu(400).json(error.message)
    })
 });
 
@@ -38,10 +42,14 @@ inputs.value.fullName = inputs.value.firstName + " " + inputs.value.lastName;
 
 
 router.post("/login", (request, response) => {
-    const inputs = validateInputs(request.body, response);
+    const inputs = validateLoginInputs(request.body, response);
+
+    if(inputs.error){
+        return response.status(400).json(inputs.error.stack);
+    }
 
    models.User.findOne({
-       where: { fullName: inputs.value.fullName}
+       where: { email: inputs.value.email}
    })
    .then(async (user) => {
 
@@ -64,6 +72,9 @@ router.post("/login", (request, response) => {
         token: token
     });
     
+   })
+   .catch(error => {
+       return response.status(400).json(error);
    })
 });
 
