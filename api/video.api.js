@@ -12,33 +12,33 @@ const sharp = require("sharp");
 const ffmpeg = require("ffmpeg");
 
 
-aws.config.update({
-  secretAccessKey: process.env.AWSCLI_SECRET_ACCESS_KEY,
-  accessKeyId: process.env.AWSCLI_ACCESS_KEY_ID,
-  region: process.env.AWSCLI_REGION
-});
+// aws.config.update({
+//   secretAccessKey: process.env.AWSCLI_SECRET_ACCESS_KEY,
+//   accessKeyId: process.env.AWSCLI_ACCESS_KEY_ID,
+//   region: process.env.AWSCLI_REGION
+// });
 
 
-const s3 = new aws.S3()
+// const s3 = new aws.S3()
  
-const upload = multer({
-  storage: multerS3({
-    s3: s3,
-    bucket: process.env.AWS_VIDEO_ORIGINAL_BUCKET,
-    acl: process.env.AWS_ACL,
-    contentType: function(request, file, cb) {
-      cb(null,file.mimetype)
-    },
-    metadata: function (request, file, cb) {
-      cb(null, {fieldName: file.fieldname});
-    },
-    key: function (request, file, cb) {
-      let extArray = file.mimetype.split("/");
-      let extension = extArray[extArray.length - 1];
-      cb(null, file.originalname + '-' + Date.now()+ '.' +extension)
-    }
-  })
-})
+// const upload = multer({
+//   storage: multerS3({
+//     s3: s3,
+//     bucket: process.env.AWS_VIDEO_ORIGINAL_BUCKET,
+//     acl: process.env.AWS_ACL,
+//     contentType: function(request, file, cb) {
+//       cb(null,file.mimetype)
+//     },
+//     metadata: function (request, file, cb) {
+//       cb(null, {fieldName: file.fieldname});
+//     },
+//     key: function (request, file, cb) {
+//       let extArray = file.mimetype.split("/");
+//       let extension = extArray[extArray.length - 1];
+//       cb(null, file.originalname + '-' + Date.now()+ '.' +extension)
+//     }
+//   })
+// })
 
 const upload2 = multer();
 

@@ -9,8 +9,8 @@ const config = require(__dirname + '/../config/config.js')[env];
 const db = {};
 
 let sequelize;
-if (process.env.DATABASE_URL) {
-  sequelize = new Sequelize(process.env.DATABASE_URL, {
+if (process.env.RDS_HOSTNAME) {
+  sequelize = new Sequelize(process.env.RDS_HOSTNAME, {
     dialect:  'postgres',
     dialectOptions: {
       ssl: {
