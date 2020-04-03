@@ -73,86 +73,86 @@ return response.json({
  * 3. If any transloader operation fails the video should be deleted from bucket
  * 
  */
-router.get("/upload", upload.single('video'), async(request, response) => {
-  const obj = {};
+// router.get("/upload", upload.single('video'), async(request, response) => {
+//   const obj = {};
 
-   obj.s3ImageKey = request.file.key;
-   obj.s3LocationPath = request.file.location;
-   obj.s3Bucket = request.file.bucket;
-   obj.description = request.body.description;
-   obj.title = request.body.title;
-   obj.channel_id = parseInt(request.body.channel_id);
-   obj.user_id = parseInt(request.body.user_id);
+//    obj.s3ImageKey = request.file.key;
+//    obj.s3LocationPath = request.file.location;
+//    obj.s3Bucket = request.file.bucket;
+//    obj.description = request.body.description;
+//    obj.title = request.body.title;
+//    obj.channel_id = parseInt(request.body.channel_id);
+//    obj.user_id = parseInt(request.body.user_id);
 
-   obj.file = request.file;
+//    obj.file = request.file;
 
-  const params = {
-    Bucket: request.file.bucket,
-    Key: request.file.key
-  }
+//   const params = {
+//     Bucket: request.file.bucket,
+//     Key: request.file.key
+//   }
 
-  // Getting object
-  s3.getObject(params, (error, data) => {
-    if(error) return response.status(400).json(error, error.stack)
-    else {
-      const process = new ffmpeg(data.body);
-      process.then((video) => {
-        video.fnExtractFrameToJPG()
-      })
-      return response.status(200).json(data.body)
-    }
+//   // Getting object
+//   s3.getObject(params, (error, data) => {
+//     if(error) return response.status(400).json(error, error.stack)
+//     else {
+//       const process = new ffmpeg(data.body);
+//       process.then((video) => {
+//         video.fnExtractFrameToJPG()
+//       })
+//       return response.status(200).json(data.body)
+//     }
 
-  })
+//   })
 
-});
+// });
 
 
-router.get("/uploadWithTransloadIt", upload.single('video'), async (request, response) => {
+// router.get("/uploadWithTransloadIt", upload.single('video'), async (request, response) => {
 
-    const s3ImageKey = request.file.key;
-    const s3LocationPath = request.file.location;
-    const description = request.body.description;
-    const title = request.body.title;
-    const channel_id = parseInt(request.body.channel_id);
-    const user_id = parseInt(request.body.user_id);
+//     const s3ImageKey = request.file.key;
+//     const s3LocationPath = request.file.location;
+//     const description = request.body.description;
+//     const title = request.body.title;
+//     const channel_id = parseInt(request.body.channel_id);
+//     const user_id = parseInt(request.body.user_id);
 
-    try {
+//     try {
 
-      // create thumbnail, and modifiy vido
-      let thumbnail_url = await createThumbnailUploadVideos(s3ImageKey)
-        .then((results) => {
+//       // create thumbnail, and modifiy vido
+//       let thumbnail_url = await createThumbnailUploadVideos(s3ImageKey)
+//         .then((results) => {
    
-          models.Video.create({
-            user_id: user_id,
-            channel_id: channel_id,
-            streaming_url: results.modified_video_url,
-            thumbnail_url: results.thumbnail_url,
-            title: title,
-            description: description,
-          }).then(() => {
-            return response.status(201).json({
-              message: "Video successfully created!",
-              status: "Ok"
-            });
-          })
-          .catch((error) => {
-            throw new Error(error);
-            return;
-          })
+//           models.Video.create({
+//             user_id: user_id,
+//             channel_id: channel_id,
+//             streaming_url: results.modified_video_url,
+//             thumbnail_url: results.thumbnail_url,
+//             title: title,
+//             description: description,
+//           }).then(() => {
+//             return response.status(201).json({
+//               message: "Video successfully created!",
+//               status: "Ok"
+//             });
+//           })
+//           .catch((error) => {
+//             throw new Error(error);
+//             return;
+//           })
     
-        })
-        .catch((error) => {
-          throw new Error(error)
-          return;
-        })
-    }catch(error) {
-      return response.status(400).json(error)
-    }
-    finally {
-      console.log('complete')
-    }
+//         })
+//         .catch((error) => {
+//           throw new Error(error)
+//           return;
+//         })
+//     }catch(error) {
+//       return response.status(400).json(error)
+//     }
+//     finally {
+//       console.log('complete')
+//     }
   
-});
+// });
 
 
 
