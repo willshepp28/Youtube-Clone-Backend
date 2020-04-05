@@ -1,14 +1,7 @@
 require("dotenv").config();
 
 const router = require("express").Router();
-const models = require("../db/models");
-const aws = require("aws-sdk");
 const multer = require("multer");
-const multerS3 = require('multer-s3')
-const { createThumbnailUploadVideos } = require("../helpers/api/transload-it/thumbnail-generator.api");
-const fs = require("fs");
-const request = require("request")
-const sharp = require("sharp");
 const ffmpeg = require("ffmpeg");
 
 

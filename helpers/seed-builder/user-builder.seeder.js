@@ -20,9 +20,12 @@ async function getUsers() {
         
          _.forEach(users, (user) => {
              seeds.push({ 
-                 fullName: `${user.name.first} ${user.name.last}`, 
+                 fullName: `${user.name.first} ${user.name.last}`,
+                 firstName: user.name.first,
+                 lastName: user.name.last,
                  profile_pic: user.picture.medium,
                  password: process.env.SEED_USER_PASSWORD,
+                 email: user.email,
                  createdAt: new Date(),
                  updatedAt: new Date()
              })

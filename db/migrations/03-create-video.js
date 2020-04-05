@@ -25,9 +25,22 @@ module.exports = {
         }
       },
       streaming_url: {
-        type: Sequelize.TEXT
+        type: Sequelize.TEXT,
+        allowNull: false
       },
       thumbnail_url: {
+        type: Sequelize.TEXT,
+        allowNull: false
+      },
+      processed: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false
+      },
+      title: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
+      description: {
         type: Sequelize.TEXT
       },
       createdAt: {

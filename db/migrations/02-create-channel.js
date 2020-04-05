@@ -1,14 +1,27 @@
 'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('Thumbnails', {
+    return queryInterface.createTable('Channels', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      thumbnail_url: {
+      user_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: 'Users',
+          key: 'id'
+        }
+      },
+      name: {
+        type: Sequelize.STRING,
+        allowNull: false,
+        unique: true
+      },
+      description: {
         type: Sequelize.TEXT
       },
       createdAt: {
@@ -22,6 +35,6 @@ module.exports = {
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('Thumbnails');
+    return queryInterface.dropTable('Channels');
   }
 };

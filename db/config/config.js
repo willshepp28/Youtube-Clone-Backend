@@ -10,15 +10,19 @@ module.exports = {
     logging: console.log
   },
   production: {
-    use_env_variable: "DATABASE_URL",
-    dialect: "postgres",
-    dialectOptions: {
-      ssl: {
-        require: true
-      }
-    },
-    ssl: true
-  }
+    username: process.env.RDS_USERNAME, 
+    password: process.env.RDS_PASSWORD,
+    database: process.env.RDS_DB_NAME,
+    host: process.env.RDS_DB_HOSTNAME,
+      port: process.env.RDS_PORT,
+      logging: console.log,
+      maxConcurrentQueries: 100,
+      dialect: 'postgres',
+      dialectOptions: {
+          ssl:'Amazon RDS'
+      },
+      pool: { maxConnections: 5, maxIdleTime: 30},
+      language: 'en'
 }
-
+}
 

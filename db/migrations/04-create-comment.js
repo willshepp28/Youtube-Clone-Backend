@@ -1,7 +1,7 @@
 'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('Channels', {
+    return queryInterface.createTable('Comments', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -16,12 +16,17 @@ module.exports = {
           key: 'id'
         }
       },
-      name: {
-        type: Sequelize.STRING,
-        allowNull: false
+      video_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: 'Videos',
+          key: 'id'
+        }
       },
-      description: {
-        type: Sequelize.TEXT
+      reply: {
+        type: Sequelize.TEXT,
+        allowNull: false
       },
       createdAt: {
         allowNull: false,
@@ -34,6 +39,6 @@ module.exports = {
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('Channels');
+    return queryInterface.dropTable('Comments');
   }
 };

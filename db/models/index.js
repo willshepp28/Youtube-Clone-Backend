@@ -9,7 +9,7 @@ const config = require(__dirname + '/../config/config.js')[env];
 const db = {};
 
 let sequelize;
-if (process.env.RDS_DB_HOSTNAME) {
+if (process.env.RDS_DB_HOSTNAME && process.env.NODE_ENV === "production") {
   // sequelize = new Sequelize(process.env.RDS_HOSTNAME, {
   //   dialect:  'postgres',
   //   dialectOptions: {

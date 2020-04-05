@@ -7,8 +7,15 @@ module.exports = (sequelize, DataTypes) => {
     fullName: DataTypes.STRING,
     firstName: DataTypes.STRING,
     lastName: DataTypes.STRING,
-    email: DataTypes.STRING,
-    password: DataTypes.TEXT,
+    email: {
+      type: DataTypes.STRING,
+      unique: true,
+      allowNull: false
+    },
+    password: {
+      type : DataTypes.TEXT,
+      allowNull: false
+    },
     profile_pic: {
       type: DataTypes.TEXT,
       defaultValue: "https://elitebasketballny.com/wp-content/uploads/2018/07/profile-placeholder.png"
@@ -24,7 +31,6 @@ module.exports = (sequelize, DataTypes) => {
     // associations can be defined here
     User.hasMany(models.Video, { foreignKey: 'user_id'});
     User.hasMany(models.Comment, { foreignKey: 'user_id'});
-    User.hasMany(models.Thumbnail, { foreignKey: 'user_id'});
   };
   return User;
 };

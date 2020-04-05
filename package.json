@@ -4,7 +4,9 @@
   "description": "backend to youtube-clone",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prestart": "npx sequelize-cli db:migrate",
+    "migrate": "npx sequelize-cli db:migrate"
   },
   "author": "",
   "license": "ISC",
