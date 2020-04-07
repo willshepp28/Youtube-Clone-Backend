@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "prestart": "npx sequelize-cli db:migrate",
-    "migrate": "npx sequelize-cli db:migrate"
+    "migrate": "npx sequelize-cli db:migrate",
+    "production": "NODE_ENV=production node app.js"
   },
   "author": "",
   "license": "ISC",

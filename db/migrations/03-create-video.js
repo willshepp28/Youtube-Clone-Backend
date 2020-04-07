@@ -26,11 +26,11 @@ module.exports = {
       },
       streaming_url: {
         type: Sequelize.TEXT,
-        allowNull: false
+        defaultValue: null
       },
       thumbnail_url: {
         type: Sequelize.TEXT,
-        allowNull: false
+        defaultValue: null
       },
       processed: {
         type: Sequelize.BOOLEAN,

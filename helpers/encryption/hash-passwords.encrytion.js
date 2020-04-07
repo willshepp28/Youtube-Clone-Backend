@@ -8,5 +8,8 @@ const bycrpt = require("bcrypt");
 }
 
 
-
+// async function hashPassword(password){
+//     return bcrypt.hashSync(password, parseInt(process.env.SALT_ROUNDS))
+//   }
+  
 module.exports = hashPassword;

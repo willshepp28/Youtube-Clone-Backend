@@ -29,6 +29,10 @@ module.exports = {
       profile_pic: {
         type: Sequelize.TEXT
       },
+      has_channel: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

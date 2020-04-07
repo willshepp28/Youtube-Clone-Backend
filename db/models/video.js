@@ -1,14 +1,20 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const Video = sequelize.define('Video', {
-    streaming_url: DataTypes.TEXT,
-    thumbnail_url: DataTypes.TEXT,
+    streaming_url: {
+      type: DataTypes.TEXT,
+      defaultValue: null
+    },
+    thumbnail_url: {
+      type: DataTypes.TEXT,
+      defaultValue: null
+    },
     title: {
       type: DataTypes.STRING,
       allowNull: false
     },
     description: {
-      type: DataTypes.TEXT
+      type: DataTypes.TEXT,
     },
     processed: {
       type: DataTypes.BOOLEAN,

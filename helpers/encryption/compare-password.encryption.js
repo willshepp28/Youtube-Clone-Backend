@@ -1,8 +1,8 @@
 const bcrypt = require("bcrypt");
 
 
-function comparePasswordToHash(password, hash){
-    return bcrypt.compare(password, hash);
+async function comparePasswordToHash(password, hash){
+    return await bcrypt.compare(password, hash);
 }
 
 

@@ -72,6 +72,7 @@ router.post("/login", (request, response) => {
     return response.status(200).json({
         id: user.dataValues.id,
         fullName: user.dataValues.fullName,
+        hasChannel: user.dataValues.has_channel,
         token: token
     });
     
