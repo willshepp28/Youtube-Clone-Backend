@@ -20,15 +20,14 @@ const s3 = new AWS.S3({
 
 
 router.post("/" , validateToken, async(request, response) => {
-    const key = `${request.decoded.id}/${v4()}.mp4`; 
+    const bucket_key = `${request.decoded.id}/${v4()}.mp4`; 
     const description = request.body.value.description;
     const title = request.body.value.title;
 
     s3.getSignedUrl('putObject', {
         Bucket: process.env.AWS_VIDEO_ORIGINAL_BUCKET,
         ContentType: 'video/mp4',
-        Key: key,
-        Metadata: {user_id: `${request.decoded.id}`},
+        Key: bucket_key
     }, async (error, url) => {
         if(error){
             return response.status(400).json(error);
@@ -43,13 +42,15 @@ router.post("/" , validateToken, async(request, response) => {
             const createVideo = await models.Video.create({
                     user_id: request.decoded.id,
                     channel_id: getChannelId.id,
+                    key: bucket_key,
                     title: title,
                     description: description
             });
 
-            response.status(200).json({key, url})
+            response.status(200).json({bucket_key, url})
         }
         catch(error){
+            console.log(error);
             return response.status(400).json(error);
         }
     })

@@ -16,6 +16,11 @@ module.exports = (sequelize, DataTypes) => {
     description: {
       type: DataTypes.TEXT,
     },
+  key: {
+    type: DataTypes.TEXT,
+    allowNull: false,
+    unique: true
+  },
     processed: {
       type: DataTypes.BOOLEAN,
       defaultValue: false

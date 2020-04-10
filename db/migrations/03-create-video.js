@@ -32,6 +32,11 @@ module.exports = {
         type: Sequelize.TEXT,
         defaultValue: null
       },
+      key: {
+        type: Sequelize.TEXT,
+        allowNull: false,
+        unique: true
+      },
       processed: {
         type: Sequelize.BOOLEAN,
         defaultValue: false

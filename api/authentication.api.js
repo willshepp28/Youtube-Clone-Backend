@@ -31,9 +31,9 @@ inputs.value.fullName = inputs.value.firstName + " " + inputs.value.lastName;
 
    models.User.create(inputs.value)
     .then((user) => {
-       return response.status(200).json({message: "User succesfully created"});
+       return response.status(200).json({message: "User successfully created"});
    }).catch((error) =>{ 
-       return response.statu(400).json(error.message)
+       return response.status(400).json(error.message)
    })
 });
 
