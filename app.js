@@ -10,6 +10,8 @@ const channelAPI = require("./api/channel.api");
 const videosAPI = require("./api/video.api");
 const videoUploadAPI = require("./api/video.upload.api");
 const commentAPI = require("./api/comment.api");
+const verifyAPI = require("./api/auth-verify.api");
+const testAPI = require("./api/test.api");
 const PORT = process.env.PORT || 5000;
 
 
@@ -33,6 +35,8 @@ application.use("/api/channel", channelAPI);
 application.use("/api/videos", videosAPI);
 application.use("/api/video-upload", videoUploadAPI);
 application.use("/api/comment", commentAPI);
+application.use("/api/test", testAPI);
+application.use("/api/auth/verify/", verifyAPI);
 
 
 

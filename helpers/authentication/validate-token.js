@@ -7,9 +7,9 @@ const fs = require("fs");
 module.exports = {
   validateToken: (request, response, next) => {
 
-    const authorizationHeaader = request.headers.authorization;
+    const authorizationHeader = request.headers.authorization;
     let result;
-    if (authorizationHeaader) {
+    if (authorizationHeader) {
       const token = request.headers.authorization.split(' ')[1]; // Bearer <token>
 
       const pem =  fs.readFileSync('./epublic.pem', 'utf8')

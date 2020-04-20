@@ -8,6 +8,7 @@ const {
 const comparePasswordToHash = require("../helpers/encryption/compare-password.encryption");
 const jwt = require("jsonwebtoken");
 const fs = require("fs");
+const {generateVerificationToken, saveToken} = require("../helpers/authentication/generate-verification-token")
 
 
 /**
@@ -17,8 +18,31 @@ const fs = require("fs");
  */
 
 
+async function sendVerificationEmail(user, request, response){
+    try{
+        const token = await generateVerificationToken(user);
+        await saveToken(token);
 
-router.post("/register", async(request, response) => {
+        // Save the verification token
+
+        let subject = "Account Verification Token";
+        let to = user.email;
+        let from = process.env.FROM_EMAIL;
+        let link="http://"+request.headers.host+"/api/auth/verify/"+token.token;
+        let html = `<p>Hi ${user.fullName}<p><br><p>Please click on the following <a href="${link}">link</a> to verify your account.</p> 
+                  <br><p>If you did not request this, please ignore this email.</p>`;
+
+        await sendEmail({to, from, subject, html});
+
+        response.status(200).json({message: 'A verification email has been sent to ' + user.email + '.'});
+    }catch (error) {
+        response.status(500).json({message: error.message})
+    }
+}
+
+
+
+router.post("/register-v2", async(request, response) => {
   const inputs = validateRegisterInputs(request.body, response);
 
 
@@ -36,6 +60,38 @@ inputs.value.fullName = inputs.value.firstName + " " + inputs.value.lastName;
        return response.status(400).json(error.message)
    })
 });
+
+
+
+
+router.post("/register", async(request, response) => {
+    const inputs = validateRegisterInputs(request.body, response);
+
+    if(inputs.error) { return response.status(400).json(inputs.error.stack)};
+
+    inputs.value.fullName = inputs.value.firstName + " " + inputs.value.lastName;
+
+    try {
+        const user = await models.User.findOne({
+            where: {
+                email: inputs.value.email
+            }
+        });
+
+        if(user){ return response.status(401).json({message: "User already created"})}
+        var newUser = await models.User.create(inputs.value);
+
+        await sendVerificationEmail(newUser, request, response)
+        // const newUser = await models.User.create(inputs.value);
+
+        
+
+    } catch (error) {
+        response.status(500).json({success: false, message: error.message})
+    }
+})
+
+
 
 
 
@@ -72,6 +128,7 @@ router.post("/login", (request, response) => {
     return response.status(200).json({
         id: user.dataValues.id,
         fullName: user.dataValues.fullName,
+        profile_pic: user.dataValues.profile_pic,
         hasChannel: user.dataValues.has_channel,
         token: token
     });

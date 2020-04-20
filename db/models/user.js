@@ -21,6 +21,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.TEXT,
       defaultValue: "https://elitebasketballny.com/wp-content/uploads/2018/07/profile-placeholder.png"
     },
+    isVerified: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
+    },
     has_channel: {
       type: DataTypes.BOOLEAN,
       defaultValue: false

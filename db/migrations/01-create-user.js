@@ -29,6 +29,10 @@ module.exports = {
       profile_pic: {
         type: Sequelize.TEXT
       },
+      isVerified: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false
+      },
       has_channel: {
         type: Sequelize.BOOLEAN,
         defaultValue: false
