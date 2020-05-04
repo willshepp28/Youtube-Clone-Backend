@@ -27,4 +27,4 @@ My version of Youtube built with Angular 8, Node, Sequelize, & PostgreSQL.
 
 
 ## Data Model
-[![Youtube Clone Data Model](https://youtube-clone-assets-2.s3.amazonaws.com/ERD+Import+Example.pdf)]
+![Youtube Clone Data Model](https://youtube-clone-assets-2.s3.amazonaws.com/ERD+Import+Example.jpeg)
