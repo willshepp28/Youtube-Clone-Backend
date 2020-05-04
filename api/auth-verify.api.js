@@ -36,5 +36,5 @@ router.get("/:token", async (request, response) => {
         response.status(500).json({message: error.message})
     }
 })
-
+// api/auth/verify
 module.exports = router;

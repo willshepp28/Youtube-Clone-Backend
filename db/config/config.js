@@ -25,4 +25,4 @@ module.exports = {
       language: 'en'
 }
 }
-
+// psql --host=youtubeclone.ckol9gtfgb30.us-east-1.rds.amazonaws.com --port=5324 --username=master_user_name --password=Rds896376$ --dbname=postgres

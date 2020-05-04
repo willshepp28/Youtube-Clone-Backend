@@ -1,3 +1,6 @@
+require("dotenv").config();
+
+
 const router = require("express").Router();
 const models = require("../db/models");
 const _ = require("lodash");
@@ -9,7 +12,7 @@ const comparePasswordToHash = require("../helpers/encryption/compare-password.en
 const jwt = require("jsonwebtoken");
 const fs = require("fs");
 const {generateVerificationToken, saveToken} = require("../helpers/authentication/generate-verification-token")
-
+const { sendEmail} = require("../helpers/api/sendgrid/send-email.sendgrid");
 
 /**
  * REQUIRMENTS
@@ -40,6 +43,21 @@ async function sendVerificationEmail(user, request, response){
     }
 }
 
+
+
+router.post("/mock-email-verification", async (request, response) => {
+    try {
+       const newUser = {
+            id: 1,
+            email: process.env.MOCK_EMAIL,
+            fullName: 'Bob Brown'
+       };
+
+        await sendVerificationEmail(newUser, request, response)
+    } catch (error) {
+        response.status(500).json({success: false, message: error.message})
+    }
+})
 
 
 router.post("/register-v2", async(request, response) => {
