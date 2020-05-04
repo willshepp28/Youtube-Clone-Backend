@@ -1,6 +1,8 @@
 # Youtube Clone
 
-My version of Youtube built with Angular 8, Node, Sequelize, & PostgreSQL.
+My version of Youtube built with Angular 8, Node, Sequelize, & PostgreSQL. Check out the app live at by clicking [here](http://youtube-clone-v2.s3-website-us-east-1.amazonaws.com/home "Visit Youtube Clone")
+
+Check out the frontend repo by clicking [here](https://github.com/willshepp28/Youtube-Clone-Frontend "Visit Frontend Repo")
 
 
 ## Technologies
